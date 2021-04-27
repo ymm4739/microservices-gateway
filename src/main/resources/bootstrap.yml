@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      config:
+        file-extension: yml
+        server-addr: 182.92.5.78:8848
+  profiles:
+    active: dev

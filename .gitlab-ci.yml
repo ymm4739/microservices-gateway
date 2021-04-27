@@ -1,0 +1,25 @@
+stages:
+  - build
+  - deploy
+build:
+  stage: build
+  only:
+    - push
+  script:
+    - echo "build ..."
+    - mvn clean package -DskipTests
+    - echo "build finished"
+  artifacts:
+    name: ${CI_PROJECT_NAME}
+    paths:
+      - target/*.jar
+
+deploy:
+  stage: deploy
+  only:
+    - push
+  script:
+    - echo "deploy ..."
+    - cp target/*.jar /opt/deploy/gateway/gateway-simple.jar
+    - /opt/deploy/gateway/deployment.sh
+    - echo "deploy finished"

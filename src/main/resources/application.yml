@@ -1,0 +1,40 @@
+server:
+  port: 8000
+
+spring:
+  security:
+    ignore:
+      urls:
+        - "/oauth/oauth/**"
+        - "/actuator/**"
+        - "/oauth/rsa/publicKey"
+        - "/user-center/registry"
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://127.0.0.1:${server.port}/oauth/rsa/publicKey' #配置RSA的公钥访问地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_HOST:182.92.5.78}:8848
+        weight: 1
+
+    sentinel:
+      transport:
+        dashboard: 182.92.5.78:8180
+        port: 8719
+    gateway:
+      loadbalancer:
+        use404: true
+      enabled: true
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+
+logging:
+  level:
+    root: warn
+    com.ymm.microservices.gateway: debug
