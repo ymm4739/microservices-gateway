@@ -50,7 +50,7 @@ public class TokenFilter implements GlobalFilter, Ordered {
 
         for (String url : ignoreUrlsConfig.getUrls()) {
             if (pathMatcher.match(url, uri)) {
-                log.info("ignored url, {}", uri);
+                // log.info("ignored url, {}", uri);
                 return chain.filter(exchange);
             }
         }
@@ -81,7 +81,7 @@ public class TokenFilter implements GlobalFilter, Ordered {
                 }
             }
 
-            log.info("authorization failed, authorities={}, uri={}", authorities, uri);
+            // log.info("authorization failed, authorities={}, uri={}", authorities, uri);
             return authError(response, 403, "no authority");
             //return chain.filter(exchange);
 
